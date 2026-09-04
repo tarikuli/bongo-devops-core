@@ -323,3 +323,47 @@ git stash pop
 ### Result
 
 The production bug fix is published on `main`, while the five-line `feature.py` work is restored and remains uncommitted on `feature/system-optimization`.
+
+
+## Task 08: Clean Merge
+
+### Q: What was the goal of this task?
+
+Create three small, messy commits on `feature/system-optimization`, then combine them into one clean commit when merging into `main`.
+
+### Q: How were the three practice commits created?
+
+```bash
+git switch feature/system-optimization
+git add squash-practice.txt
+git commit -m "wip: start squash practice"
+git commit -am "wip: refine squash practice wording"
+git commit -am "wip: finish squash practice wording"
+```
+
+The three feature-branch commits were `3283c90`, `bb7adcd`, and `0b71e00`. Each made a small change to `squash-practice.txt`.
+
+### Q: How was the feature branch squashed into `main`?
+
+```bash
+git switch main
+git merge --squash feature/system-optimization
+git commit -m "feat: consolidate system optimization work"
+git push origin main
+```
+
+`git merge --squash` staged the combined result without creating a merge commit automatically. The changes were then recorded as one clean commit: `5e15384`.
+
+### Q: How was the result verified?
+
+```bash
+git log --oneline main -4
+git show --stat --oneline main
+git status --short --branch
+```
+
+The `main` history shows one consolidated commit for the feature work, and the status confirms that `main` is synchronized with GitHub.
+
+### Result
+
+The three messy feature commits were consolidated into the single clean commit `5e15384` on `main` and pushed to GitHub.
