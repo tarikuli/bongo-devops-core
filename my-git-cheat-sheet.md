@@ -208,3 +208,17 @@ edit -> status -> add -> diff --staged -> commit -> push
 When something feels unclear, run `git status`. It is usually the best next question to ask Git.
 
 **বাংলায়:** কিছু বুঝতে না পারলে `git status` চালান। Git-কে জিজ্ঞেস করার জন্য এটিই সাধারণত সবচেয়ে ভালো প্রথম কমান্ড।
+
+## শেষ কথা | শেষবার মনে রাখুন
+
+Git শেখার সময় ধীরে ধীরে কাজ করুন: আগে `git status` দেখুন, পরিবর্তন পরীক্ষা করুন, প্রয়োজনীয় ফাইল stage করুন, তারপর commit করুন। কাজটি GitHub-এ পাঠাতে শেষে `git push` ব্যবহার করুন।
+
+কোনো কাজ শেষ না হলে `git stash` দিয়ে সাময়িকভাবে সরিয়ে রাখতে পারেন। ভুল করে local পরিবর্তন মুছে ফেলার আগে সাবধান হন, কারণ `git restore` এবং `git reset --hard` আপনার কাজ মুছে দিতে পারে।
+
+এই ছোট নিয়মটি মনে রাখুন:
+
+```text
+পরিবর্তন করুন -> status দেখুন -> add করুন -> পরীক্ষা করুন -> commit করুন -> push করুন
+```
+
+নিয়মিত practice করলে Git-এর command মুখস্থ করার চেয়ে workflow বোঝা অনেক সহজ হবে।
