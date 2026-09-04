@@ -415,6 +415,52 @@ git push origin main
 
 The resolved merge commit is `84b52e2`.
 
+## Task 10: Time Machine
+
+### Q: What was the goal of this task?
+
+Practice recovering a commit after `git reset --hard HEAD~1` makes it disappear from the current branch history.
+
+### Q: How was the recovery checkpoint created?
+
+```bash
+git add recovery_checkpoint.txt
+git commit -m "chore: create reflog recovery checkpoint"
+```
+
+The checkpoint commit was `261c1e44c2f249a479eeed32a51a454374157f83`.
+
+### Q: How was the commit removed from the branch?
+
+```bash
+git reset --hard HEAD~1
+```
+
+This moved `main` back one commit and removed `recovery_checkpoint.txt` from the working tree. The commit object was still recoverable through the reflog.
+
+### Q: How was the lost commit found and restored?
+
+```bash
+git reflog -6 --date=iso
+git reset --hard 261c1e44c2f249a479eeed32a51a454374157f83
+```
+
+`git reflog` showed the previous `commit` entry, and resetting to its full hash restored both the commit and its file.
+
+### Q: How was the recovery verified?
+
+```bash
+test -f recovery_checkpoint.txt
+git show -s --format='%H%n%s%n%an <%ae>' HEAD
+git status --short --branch
+```
+
+The file exists again, the recovered commit is `HEAD`, and the branch is ready to be synchronized with GitHub.
+
+### Result
+
+The lost commit was recovered from the reflog and published as part of the Task 10 history. The recovery commit author is `Tarikul Islam <tarikuli@gmail.com>`.
+
 ### Q: How was the merge verified?
 
 ```bash
