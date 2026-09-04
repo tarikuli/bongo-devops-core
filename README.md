@@ -273,11 +273,53 @@ git blame port.conf
 
 The line `smtp_port = 8492` was added by:
 
-- Commit: `c206f6d5d846c2a65f5e1299cf79619f3ab2166a`
-- Author: `Tarikul Islam <tarikuli@gmail.com>`
-- Date: `2026-09-04 01:35:21 -0400`
-- Message: `fix: configure SMTP port`
 
 ### Result
 
 `port.conf` is published on `main`, and Git history confirms that Tarikul Islam wrote the `smtp_port = 8492` line.
+
+## Task 07: Safety Net
+
+### Q: What was the goal of this task?
+
+Practice switching context between feature work and an urgent production bug fix without losing uncommitted changes.
+
+### Q: How was the feature work started?
+
+```bash
+git switch feature/system-optimization
+```
+
+On the feature branch, `feature.py` was created with five lines of code and intentionally left uncommitted.
+
+### Q: How was the feature work hidden safely?
+
+```bash
+git stash push --include-untracked -m "WIP: feature work before production bug fix"
+git switch main
+```
+
+`--include-untracked` is important because `feature.py` was a new, untracked file. The stash temporarily removed it from the working tree so the urgent fix could be handled on `main`.
+
+### Q: How was the production bug fixed?
+
+```bash
+git add main.py
+git commit -m "fix: correct production SMTP port"
+git push origin main
+```
+
+The bug fix was committed and pushed as `e5a8298`. The corrected `main.py` returns SMTP port `8492`.
+
+### Q: How was the feature work restored?
+
+```bash
+git switch feature/system-optimization
+git stash pop
+```
+
+`git stash pop` restored `feature.py` to the feature branch without creating a commit.
+
+### Result
+
+The production bug fix is published on `main`, while the five-line `feature.py` work is restored and remains uncommitted on `feature/system-optimization`.
