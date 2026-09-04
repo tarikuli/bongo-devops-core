@@ -1,1 +1,1 @@
-Optimization baseline: stable configuration.
+Optimization main: production configuration.
