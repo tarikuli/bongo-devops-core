@@ -415,6 +415,21 @@ git push origin main
 
 The resolved merge commit is `84b52e2`.
 
+### Q: How was the merge verified?
+
+```bash
+grep -nE '^(<<<<<<<|=======|>>>>>>>)' optimization.txt
+git status --short --branch
+git log --oneline --graph -6
+```
+
+An empty marker search confirms that no conflict markers remain, and the graph shows the resolved merge on `main`.
+
+### Result
+
+The conflict was resolved manually, the merge was completed as `84b52e2`, and the resolved `main` branch was pushed to GitHub.
+
+
 ## Task 10: Time Machine
 
 ### Q: What was the goal of this task?
@@ -460,17 +475,3 @@ The file exists again, the recovered commit is `HEAD`, and the branch is ready t
 ### Result
 
 The lost commit was recovered from the reflog and published as part of the Task 10 history. The recovery commit author is `Tarikul Islam <tarikuli@gmail.com>`.
-
-### Q: How was the merge verified?
-
-```bash
-grep -nE '^(<<<<<<<|=======|>>>>>>>)' optimization.txt
-git status --short --branch
-git log --oneline --graph -6
-```
-
-An empty marker search confirms that no conflict markers remain, and the graph shows the resolved merge on `main`.
-
-### Result
-
-The conflict was resolved manually, the merge was completed as `84b52e2`, and the resolved `main` branch was pushed to GitHub.
