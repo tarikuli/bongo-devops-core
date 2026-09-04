@@ -69,3 +69,40 @@ Repository: [tarikuli/bongo-devops-core](https://github.com/tarikuli/bongo-devop
 Initial commit: `chore: initial repository setup`
 
 Branch: `main` tracking `origin/main`
+
+## Task 02: Safe Space
+
+### Q: What was the goal of this task?
+
+Create a local `.env` file with a fake password, configure Git to ignore it, and verify that the file is not included in Git changes.
+
+### Q: What was added to `.env`?
+
+```dotenv
+FAKE_PASSWORD=not-a-real-password
+```
+
+This value is intentionally fake. Real passwords, API keys, and database credentials must never be committed to Git.
+
+### Q: How was `.env` ignored?
+
+The following rule was added to `.gitignore`:
+
+```gitignore
+.env
+```
+
+This tells Git to ignore the `.env` file in the repository root.
+
+### Q: How was the ignore rule verified?
+
+```bash
+git check-ignore -v .env
+git status --short --ignored
+```
+
+`git check-ignore -v .env` identifies the exact ignore rule, while `git status --short --ignored` shows `.env` as ignored instead of untracked.
+
+### Result
+
+The fake `.env` file exists locally, `.gitignore` protects it from accidental commits, and only `.gitignore` is staged for tracking.
