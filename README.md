@@ -151,3 +151,46 @@ After switching to `main`, the test succeeds because `kernel_tuning.txt` exists 
 ### Result
 
 The feature branch is available on GitHub at [`feature/system-optimization`](https://github.com/tarikuli/bongo-devops-core/tree/feature/system-optimization), while `main` does not contain `kernel_tuning.txt`.
+
+## Task 04: Selective Memory
+
+### Q: What was the goal of this task?
+
+Create two configuration files, stage only one file at a time, and record each change in its own commit for a clear project history.
+
+### Q: Which files were created?
+
+```text
+web_fix.conf
+db_fix.conf
+```
+
+Both files contain practice configuration settings for separate services.
+
+### Q: How was only `web_fix.conf` committed first?
+
+```bash
+git add web_fix.conf
+git diff --cached --name-only
+git commit -m "fix: update web configuration"
+```
+
+The staged-file check confirmed that only `web_fix.conf` was in the index. The change was recorded as commit `b77f170`.
+
+### Q: How was `db_fix.conf` committed separately?
+
+```bash
+git add db_fix.conf
+git diff --cached --name-only
+git commit -m "fix: update database configuration"
+```
+
+The second staged-file check confirmed that only `db_fix.conf` was in the index. The change was recorded as commit `e421ccf`.
+
+### Q: Why use separate commits?
+
+Separate commits make each change easier to review, revert, and understand. Selective staging prevents unrelated files from being bundled into the same commit.
+
+### Result
+
+The web and database configuration updates are committed separately on `main` and ready to be pushed to GitHub.
