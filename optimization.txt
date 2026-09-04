@@ -1,1 +1,1 @@
-Optimization branch: experimental configuration.
+Optimization baseline: stable configuration.
