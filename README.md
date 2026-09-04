@@ -194,3 +194,51 @@ Separate commits make each change easier to review, revert, and understand. Sele
 ### Result
 
 The web and database configuration updates are committed separately on `main` and ready to be pushed to GitHub.
+
+## Task 05: Cloud Connection
+
+### Q: What was the goal of this task?
+
+Connect the local repository to GitHub with an `origin` remote, push the `main` branch, and confirm that the project history is visible online.
+
+### Q: How is a local repository linked to GitHub?
+
+For a new local repository with no remote, use:
+
+```bash
+git remote add origin https://github.com/tarikuli/bongo-devops-core.git
+```
+
+`origin` is the conventional short name for the primary remote repository.
+
+### Q: How was this repository's existing connection verified?
+
+This repository was already linked to GitHub from Task 01, so the existing remote was reused:
+
+```bash
+git remote -v
+git remote get-url origin
+```
+
+Both checks confirmed that `origin` points to `tarikuli/bongo-devops-core`.
+
+### Q: How was `main` pushed?
+
+```bash
+git push origin main
+```
+
+This sends the local `main` branch to the `main` branch on GitHub.
+
+### Q: How was the published branch verified?
+
+```bash
+git status --short --branch
+git ls-remote --heads origin main
+```
+
+The status output confirms that local `main` tracks `origin/main`, and `git ls-remote` confirms that the remote `main` branch is available on GitHub.
+
+### Result
+
+The local repository is connected to [tarikuli/bongo-devops-core](https://github.com/tarikuli/bongo-devops-core), and the `main` branch is published and visible online.
