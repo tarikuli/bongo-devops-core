@@ -106,3 +106,48 @@ git status --short --ignored
 ### Result
 
 The fake `.env` file exists locally, `.gitignore` protects it from accidental commits, and only `.gitignore` is staged for tracking.
+
+## Task 03: Parallel Universe
+
+### Q: What was the goal of this task?
+
+Create a feature branch, add `kernel_tuning.txt` inside that branch, commit and publish the change, then switch back to `main` and observe that the file is not present there.
+
+### Q: How was the feature branch created?
+
+```bash
+git switch -c feature/system-optimization
+```
+
+This creates the `feature/system-optimization` branch from the current `main` commit and switches to it.
+
+### Q: How was `kernel_tuning.txt` committed?
+
+```bash
+git add kernel_tuning.txt
+git commit -m "feat: add kernel tuning notes"
+```
+
+The file was staged and recorded in commit `7f4f2cb` on the feature branch.
+
+### Q: How was the feature branch pushed to GitHub?
+
+```bash
+git push --set-upstream origin feature/system-optimization
+```
+
+This publishes the branch and sets `origin/feature/system-optimization` as its upstream branch.
+
+### Q: How was the file's branch-specific behavior verified?
+
+```bash
+git switch main
+test ! -e kernel_tuning.txt
+git status --short --branch --ignored
+```
+
+After switching to `main`, the test succeeds because `kernel_tuning.txt` exists only in the feature branch. The status check confirms that `main` remains clean apart from the intentionally ignored local `.env`.
+
+### Result
+
+The feature branch is available on GitHub at [`feature/system-optimization`](https://github.com/tarikuli/bongo-devops-core/tree/feature/system-optimization), while `main` does not contain `kernel_tuning.txt`.
