@@ -367,3 +367,64 @@ The `main` history shows one consolidated commit for the feature work, and the s
 ### Result
 
 The three messy feature commits were consolidated into the single clean commit `5e15384` on `main` and pushed to GitHub.
+
+## Task 09: Conflict Resolution
+
+### Q: What was the goal of this task?
+
+Create two different edits to line 1 of `optimization.txt`, merge the branches, resolve the conflict manually, and complete the merge.
+
+### Q: How was the main version created?
+
+```bash
+git switch main
+printf 'Optimization baseline: stable configuration.\n' > optimization.txt
+git add optimization.txt
+git commit -m "docs: add optimization baseline"
+git push origin main
+```
+
+The baseline was published on `main` as commit `a8a7c6a`.
+
+### Q: How was the conflicting branch version created?
+
+```bash
+git switch -c feature/conflict-resolution-v2 a8a7c6a
+printf 'Optimization branch: experimental configuration.\n' > optimization.txt
+git add optimization.txt
+git commit -m "feat: add alternate optimization"
+git push --set-upstream origin feature/conflict-resolution-v2
+```
+
+The feature branch changed line 1 to `Optimization branch: experimental configuration.` in commit `f0506aa`.
+
+### Q: How was the conflict created and resolved?
+
+```bash
+git switch main
+git merge feature/conflict-resolution-v2
+```
+
+Git inserted `<<<<<<<`, `=======`, and `>>>>>>>` markers because both branches changed the same line. The file was edited manually to keep `Optimization main: production configuration.`, then the merge was completed:
+
+```bash
+git add optimization.txt
+git commit -m "merge: resolve optimization conflict"
+git push origin main
+```
+
+The resolved merge commit is `84b52e2`.
+
+### Q: How was the merge verified?
+
+```bash
+grep -nE '^(<<<<<<<|=======|>>>>>>>)' optimization.txt
+git status --short --branch
+git log --oneline --graph -6
+```
+
+An empty marker search confirms that no conflict markers remain, and the graph shows the resolved merge on `main`.
+
+### Result
+
+The conflict was resolved manually, the merge was completed as `84b52e2`, and the resolved `main` branch was pushed to GitHub.
